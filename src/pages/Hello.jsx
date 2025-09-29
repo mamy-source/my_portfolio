@@ -9,11 +9,11 @@ export default function Hero() {
     <section 
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(${bg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
+      // style={{
+      //   backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(${bg})`,
+      //   backgroundSize: 'cover',
+      //   backgroundPosition: 'center',
+      // }}
     >
       {/* Éléments décoratifs améliorés */}
       <div className="absolute top-0 left-0 w-full h-full">
@@ -91,6 +91,7 @@ export default function Hero() {
               
               {/* Liens sociaux améliorés */}
               <div className="flex space-x-4 pt-8">
+                <a href="https://github.com/mamy-source">
                 <Button 
                   variant="text" 
                   className="min-w-0 p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 hover:scale-110 group"
@@ -98,6 +99,7 @@ export default function Hero() {
                 >
                   <Github className="w-6 h-6 group-hover:scale-110 transition-transform" />
                 </Button>
+                </a>
                 <Button 
                   variant="text" 
                   className="min-w-0 p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 hover:scale-110 group"

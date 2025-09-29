@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { Github, ExternalLink, Star, Zap, ArrowRight } from "lucide-react";
 
 // Importation des images
-import ecommerceImg from "../assets/bgherosec.jpg";
-import restaurantImg from "../assets/restaurant1.jpg";
-import lmsImg from "../assets/scholl.jpg";
+import ecommerceImg from "../assets/img1.png";
+import restaurantImg from "../assets/img2.png";
+import lmsImg from "../assets/school.jpg";
 
 // Données des projets
 const projects = [
@@ -140,8 +140,8 @@ const ProjectCard = ({ project, index }) => (
             whileHover={{ x: 5 }}
           >
             <ExternalLink className="w-5 h-5" />
-            <span className="font-medium">visitez ce site</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+            <span className="font-medium"></span>
+            {/* <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" /> */}
           </motion.a>
           
           <motion.a
