@@ -290,6 +290,17 @@ const Skills = () => {
                   
                   <motion.div variants={itemVariants}>
                     <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20 relative overflow-hidden">
+                      <div className="flex items-center mb-6">
+                        <div
+                          className="w-12 h-12 rounded-xl mr-4 flex items-center justify-center"
+                          style={{ background: category.color }}
+                        >
+                          <Icon size={24} color="white" />
+                        </div>
+                        <h4 className="text-white font-bold text-xl">
+                          {category.category}
+                        </h4>
+                      </div>
                       {category.skills.map((skill, skillIndex) => (
                         <SkillProgress 
                           key={skillIndex} 
