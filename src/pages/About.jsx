@@ -1,9 +1,11 @@
-import { User, MapPin, Calendar, Award, Sparkles, Target, Zap } from "lucide-react";
+import { User, MapPin, Calendar, Award, Sparkles, Target, Zap , Globe} from "lucide-react";
 
 const stats = [
   { label: "Années d'expérience", value: "2+", icon: Calendar },
   { label: "Projets complétés", value: "5+", icon: Award },
-  { label: "Technologies maîtrisées", value: "10+", icon: User },
+  { label: "Projets en cours", value: "2", icon: Zap},
+  { label: "Projets en groupe", value: "5+", icon: User},
+  { label: "Technologies maîtrisées", value: "10+", icon: Globe },
   { label: "Clients satisfaits", value: "100%", icon: Award },
 ];
 
@@ -34,7 +36,8 @@ const StatCard = ({ icon: Icon, value, label, delay }) => (
                border border-white/10 bg-white/5 backdrop-blur-sm"
     style={{ animationDelay: delay }}
   >
-    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:animate-bounce transition-all duration-300 shadow-lg">
+    
+    <div className="w-15 h-15 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:animate-bounce transition-all duration-300 shadow-lg">
       <Icon aria-label={label} className="h-6 w-6 text-white transition-transform duration-300 group-hover:scale-125" />
     </div>
     <div className="text-3xl font-bold  mb-2 group-hover:animate-pulse bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
@@ -129,29 +132,44 @@ const About = () => {
                   <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-blue-400 transition-all duration-300">
                     Développeur Web & Logiciel
                   </h3>
-                  <p className="flex items-center text-gray-300 group-hover:text-white transition-colors duration-300 mt-2">
+                  <p className="flex items-center text-gray-300 group-hover:text-white transition-colors duration-300 mt-1">
                     <MapPin className="h-4 w-4 mr-2 text-cyan-400 group-hover:animate-wiggle" />
                     Tananarive, Madagascar
                   </p>
                 </div>
               </div>
 
-              <p className="text-gray-300 leading-relaxed mb-6 hover:text-white transition-colors duration-300 p-4 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10">
+              <p className="text-gray-300 leading-relaxed mb-2 hover:text-white transition-colors duration-300 p-4 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10">
                 Passionné par les technologies web modernes, je conçois et développe des applications 
                 performantes et intuitives. Mon approche combine créativité, rigueur technique et 
                 attention aux détails pour créer des expériences utilisateur exceptionnelles.
               </p>
 
               <p className="text-gray-300 leading-relaxed hover:text-white transition-colors duration-300 p-4 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10">
-                Toujours en quête d'apprentissage, je reste à l'affût des dernières innovations 
-                technologiques pour offrir des solutions à la pointe de la modernité. Mon objectif 
-                est de transformer chaque projet en une réussite remarquable.
+                <span className="text-blue-700 font-bold text-xl">Formation :<br></br></span>
+                  2025 : Licence 3 en Informatique et Programmation (en cours)<br></br>
+                  2024 : Diplôme de Technicien Supérieur (DTS)<br></br>
+                  2022 : Formation en langue anglaise<br></br>
+                  2021 : Baccalauréat série D<br></br>
+                  2016 : BEPC<br></br>
+              </p>
+              <p className="text-gray-300 leading-relaxed hover:text-white transition-colors duration-300 p-4 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10">
+
+              
+                  <span className="text-blue-500 font-bold text-xl">Expérience professionnelle et projets: <br /></span>
+                  2025 : Création d’un site web standard pour restaurant (Django, JavaScript, Bootstrap, SQLite) – Projet personnel<br></br>
+                  2025 : Développement d’un logiciel de gestion d’établissement (Python, PyQt5, MySQL, MySQLServer)<br></br>
+                  2025 : Développement d’une plateforme E-learning pour l’entreprise Hoavi (ReactJS/NextJS, Django/Django REST Framework, PostgreSQL, Firebase) – Projet en cours<br></br>
+                  2024 : Réalisation d’une application web de gestion de stock (Django, JavaScript, JQuery,Bootstrap,  SQLite) – Projet de fin d’études DTS<br></br>
+              
               </p>
             </div>
           </article>
 
           {/* ✅ Bloc statistiques amélioré */}
+          
           <div className="grid grid-cols-2 gap-6 animate-slideInRight">
+            
             {stats.map((stat, index) => (
               <StatCard
                 key={stat.label}
