@@ -6,6 +6,8 @@ import { Github, ExternalLink, Star, Zap, ArrowRight } from "lucide-react";
 import ecommerceImg from "../assets/img1.png";
 import restaurantImg from "../assets/img2.png";
 import lmsImg from "../assets/school.jpg";
+import elearningImg from "../assets/home.png";
+import { desc } from "framer-motion/client";
 
 // Données des projets
 const projects = [
@@ -46,6 +48,19 @@ const projects = [
     links: {
       demo: 'https://example.com/demo-lms',
       github: 'https://github.com/example/lms-platform'
+    }
+  },
+  {
+    id: 4,
+    title: "E-learning Platform for Language Learning",
+    desc: "Une plateforme e-learning dédiée à l'apprentissage des langues, offrant des cours interactifs, des quiz et des ressources multimédias pour une expérience d'apprentissage immersive.",
+    img: elearningImg,
+    technologies: ['Django(DRF)', 'Next.JS', 'TailwindCss', 'PostegreSQL', 'firebase'],
+    category: 'web',
+    featured: false,
+    links: {
+      demo: 'https://e-learning-eta-ten.vercel.app/en',
+      github: 'https://github.com/mamy-source/lang-courses-backend'
     }
   }
 ];

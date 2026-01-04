@@ -96,21 +96,21 @@ const Contact = () => {
     { 
       icon: Github, 
       color: "hover:bg-gray-800 border-gray-700", 
-      url: 'https://github.com', 
+      url: 'https://github.com/mamy-source', 
       name: "GitHub",
       delay: 0.1
     },
     { 
       icon: Linkedin, 
       color: "hover:bg-blue-600 border-blue-500", 
-      url: 'https://linkedin.com', 
+      url: 'https://www.linkedin.com/in/mamitiana-randrianantenaina-857603380?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', 
       name: "LinkedIn",
       delay: 0.2
     },
     { 
       icon: Facebook, 
       color: "hover:bg-blue-500 border-blue-400", 
-      url: 'https://facebook.com', 
+      url: 'https://www.facebook.com/mamitianajt.rijaniaina', 
       name: "Facebook",
       delay: 0.4
     },

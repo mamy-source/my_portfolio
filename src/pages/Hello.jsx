@@ -2,60 +2,303 @@ import { Button, Typography, Container, Box, Fade } from "@mui/material";
 import { ArrowDownward } from "@mui/icons-material";
 import { Github, Linkedin, Mail, Zap, Star, Sparkles, Download } from 'lucide-react';
 import bg from "../assets/laptop1.jpg";
-import profilePhoto from "../assets/miekely.png";
+import profilePhoto from "../assets/miekely.jpg";
+import jsPDF from "jspdf";
 
 export default function Hero() {
-  // Fonction pour télécharger le CV
+  // Fonction pour télécharger le CV en PDF
   const handleDownloadCV = () => {
-    // Créer un contenu de CV structuré
-    const cvContent = `
-  Informations personnelles
-  Nom et prénom : RANDRIANANTENAINA Herilalaina Mamitiana
-  Âge : 24 ans
-  Adresse : Lot VR 104 Ambohimiandra
-  Email : mamitianarandrianantenaina253@gmail.com
-  Téléphone : 0346155335/ 0326123350
-  Portfolio : https://mamitiana-portfolio.vercel.app
-  Profil
-  Développeur web passionné, maîtrisant plusieurs technologies front-end et back-end. Créatif, rigoureux et capable de travailler en équipe, je conçois et développe des applications web et logicielles adaptées aux besoins des utilisateurs.
-  Formation
-  2025 : Licence 3 en Informatique et Programmation (en cours)
-  2024 : Diplôme de Technicien Supérieur (DTS)
-  2022 : Formation en langue anglaise
-  2021 : Baccalauréat série D
-  2016 : BEPC
-  Expérience professionnelle et projets
-  2025 : Création d’un site web standard pour restaurant (Django, JavaScript, Bootstrap, SQLite) – Projet personnel
-  2025 : Développement d’un logiciel de gestion d’établissement (Python, PyQt5, MySQL, MySQLServer)
-  2025 : Développement d’une plateforme E-learning pour l’entreprise Hoavi (ReactJS/NextJS, Django/Django REST Framework, PostgreSQL, Firebase) – Projet en cours
-  2024 : Réalisation d’une application web de gestion de stock (Django, JavaScript, JQuery, SQLite) – Projet de fin d’études DTS
-  Compétences techniques
-  Front-end : HTML, CSS, JavaScript, Bootstrap, Tailwind CSS, ReactJS, NextJS
-  Back-end : Python/Django, NodeJS, PHP
-  Bases de données : MySQL, PostgreSQL, MongoDB, SQLite
-  Outils & DevOps : Git/GitHub, CI/CD, Docker
-  Autres : WordPress, Tkinter, PyQt5, Dart/Flutter, POO, Méthodologie Agile/Scrum
-  Langues
-  Malagasy : Langue maternelle
-  Français : Lecture et écriture
-  Anglais : Lecture et écriture
-  Qualités personnelles
-  Rigoureux et organisé
-  Esprit d’équipe
-  Créatif et orienté résolution de problèmes
-  Bon sens du conseil et de la communication
-    `;
-
-    // Créer un blob et déclencher le téléchargement
-    const blob = new Blob([cvContent], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'CV_Mamitiana_RANDRIANANTENAINA_Developpeur_FullStack.txt';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+    const doc = new jsPDF();
+    
+    // Configuration
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 20;
+    let yPosition = 20;
+    
+    // Couleurs
+    const primaryColor = [41, 128, 185]; // Bleu
+    const secondaryColor = [52, 73, 94]; // Gris foncé
+    const accentColor = [231, 76, 60]; // Rouge pour les dates
+    
+    // Fonction pour ajouter du texte avec gestion des sauts de ligne
+    const addText = (text, x, y, maxWidth = pageWidth - margin * 2, fontSize = 11) => {
+      doc.setFontSize(fontSize);
+      const lines = doc.splitTextToSize(text, maxWidth);
+      doc.text(lines, x, y);
+      return lines.length * (fontSize * 0.35);
+    };
+    
+    // Fonction pour dessiner une ligne de séparation
+    const drawLine = (y) => {
+      doc.setDrawColor(...primaryColor);
+      doc.setLineWidth(0.5);
+      doc.line(margin, y, pageWidth - margin, y);
+      return y + 5;
+    };
+    
+    // Titre principal
+    doc.setFontSize(24);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...primaryColor);
+    doc.text('RANDRIANANTENAINA Herilalaina Mamitiana', pageWidth / 2, yPosition, { align: 'center' });
+    yPosition += 10;
+    
+    // Sous-titre
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...secondaryColor);
+    doc.text('Développeur Full Stack & Logiciel', pageWidth / 2, yPosition, { align: 'center' });
+    yPosition += 15;
+    
+    // Informations personnelles
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...primaryColor);
+    doc.text('INFORMATIONS PERSONNELLES', margin, yPosition);
+    yPosition += 8;
+    yPosition = drawLine(yPosition);
+    yPosition += 5;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    
+    const infos = [
+      'Âge : 24 ans',
+      'Adresse : Lot VR 104 Ambohimiandra',
+      'Email : mamitianarandrianantenaina253@gmail.com',
+      'Téléphone : 0346155335 / 0326123350',
+      'Portfolio : https://mamitiana-portfolio.vercel.app'
+    ];
+    
+    infos.forEach(info => {
+      const height = addText(info, margin, yPosition);
+      yPosition += height + 5;
+    });
+    
+    yPosition += 10;
+    
+    // Profil
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...primaryColor);
+    doc.text('PROFIL', margin, yPosition);
+    yPosition += 8;
+    yPosition = drawLine(yPosition);
+    yPosition += 5;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    const profilText = "Développeur web passionné, maîtrisant plusieurs technologies front-end et back-end. Créatif, rigoureux et capable de travailler en équipe, je conçois et développe des applications web et logicielles adaptées aux besoins des utilisateurs.";
+    yPosition += addText(profilText, margin, yPosition) + 10;
+    
+    // Vérifier si besoin d'une nouvelle page
+    if (yPosition > 250) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    // Formation
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...primaryColor);
+    doc.text('FORMATION', margin, yPosition);
+    yPosition += 8;
+    yPosition = drawLine(yPosition);
+    yPosition += 5;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    const formations = [
+      { year: '2025', detail: 'Licence Proffessionnel en Informatique et Programmation' },
+      { year: '2024', detail: 'Diplôme de Technicien Supérieur (DTS)' },
+      { year: '2022', detail: 'Formation en langue anglaise' },
+      { year: '2021', detail: 'Baccalauréat série D' },
+      { year: '2016', detail: 'BEPC' },
+      { year: '2014', detail: 'Certificat d\'Études Primaires' }
+    ];
+    
+    formations.forEach(formation => {
+      doc.setTextColor(...accentColor);
+      const yearWidth = doc.getTextWidth(formation.year + ' : ');
+      doc.text(formation.year + ' : ', margin, yPosition);
+      
+      doc.setTextColor(0, 0, 0);
+      const detailLines = doc.splitTextToSize(formation.detail, pageWidth - margin * 2 - yearWidth);
+      doc.text(detailLines, margin + yearWidth, yPosition);
+      yPosition += detailLines.length * (10 * 0.35) + 5;
+    });
+    
+    yPosition += 5;
+    
+    // Expérience professionnelle
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...primaryColor);
+    doc.text('EXPÉRIENCE PROFESSIONNELLE & PROJETS', margin, yPosition);
+    yPosition += 8;
+    yPosition = drawLine(yPosition);
+    yPosition += 5;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    const experiences = [
+      {
+        year: '2025',
+        title: 'Création d\'un site web pour restaurant',
+        tech: 'Django, JavaScript, Bootstrap, SQLite',
+        type: 'Projet personnel'
+      },
+      {
+        year: '2025',
+        title: 'Logiciel de gestion d\'établissement',
+        tech: 'Python, PyQt5, MySQL, MySQLServer'
+      },
+      {
+        year: '2025',
+        title: 'Plateforme E-learning pour l\'entreprise Hoavi',
+        tech: 'ReactJS/NextJS, Django REST, PostgreSQL, Firebase',
+        type: 'Projet en cours'
+      },
+      {
+        year: '2024',
+        title: 'Application web de gestion de stock',
+        tech: 'Django, JavaScript, JQuery, SQLite',
+        type: 'Projet de fin d\'études DTS'
+      }
+    ];
+    
+    experiences.forEach(exp => {
+      doc.setTextColor(...accentColor);
+      const yearWidth = doc.getTextWidth(exp.year + ' : ');
+      doc.text(exp.year + ' : ', margin, yPosition);
+      
+      doc.setTextColor(0, 0, 0);
+      let titleText = exp.title;
+      if (exp.type) {
+        titleText += ` – ${exp.type}`;
+      }
+      
+      const titleLines = doc.splitTextToSize(titleText, pageWidth - margin * 2 - yearWidth);
+      doc.text(titleLines, margin + yearWidth, yPosition);
+      yPosition += titleLines.length * (10 * 0.35) + 3;
+      
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(100, 100, 100);
+      const techHeight = addText(`Technologies : ${exp.tech}`, margin + 5, yPosition, pageWidth - margin * 2 - 5);
+      yPosition += techHeight + 8;
+      doc.setFont('helvetica', 'normal');
+    });
+    
+    // Vérifier si besoin d'une nouvelle page
+    if (yPosition > 250) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    // Compétences techniques
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...primaryColor);
+    doc.text('COMPÉTENCES TECHNIQUES', margin, yPosition);
+    yPosition += 8;
+    yPosition = drawLine(yPosition);
+    yPosition += 5;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    
+    const competences = {
+      'Front-end': 'HTML, CSS, JavaScript, Bootstrap, Tailwind CSS, ReactJS, NextJS',
+      'Back-end': 'Python/Django, NodeJS, PHP',
+      'Bases de données': 'MySQL, PostgreSQL, MongoDB, SQLite',
+      'Outils & DevOps': 'Git/GitHub, CI/CD, Docker',
+      'Autres': 'WordPress, Tkinter, PyQt5, Dart/Flutter, POO, Méthodologie Agile/Scrum'
+    };
+    
+    Object.entries(competences).forEach(([categorie, techs]) => {
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...secondaryColor);
+      const categorieWidth = doc.getTextWidth(categorie + ' : ');
+      doc.text(categorie + ' : ', margin, yPosition);
+      yPosition += 4;
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0, 0, 0);
+      const techLines = doc.splitTextToSize(techs, pageWidth - margin * 2 - 5);
+      doc.text(techLines, margin + 5, yPosition);
+      yPosition += techLines.length * (10 * 0.35) + 8;
+    });
+    
+    // Langues
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...primaryColor);
+    doc.text('LANGUES', margin, yPosition);
+    yPosition += 8;
+    yPosition = drawLine(yPosition);
+    yPosition += 5;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    const langues = [
+      'Malagasy : Langue maternelle',
+      'Français : Lecture et écriture',
+      'Anglais : Lecture et écriture'
+    ];
+    
+    langues.forEach(langue => {
+      const [lang, niveau] = langue.split(' : ');
+      doc.setFont('helvetica', 'bold');
+      const langWidth = doc.getTextWidth(lang + ' : ');
+      doc.text(lang + ' : ', margin, yPosition);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.text(niveau, margin + langWidth, yPosition);
+      yPosition += 8;
+    });
+    
+    yPosition += 5;
+    
+    // Vérifier si besoin d'une nouvelle page
+    if (yPosition > 250) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    // Qualités personnelles
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...primaryColor);
+    doc.text('QUALITÉS PERSONNELLES', margin, yPosition);
+    yPosition += 8;
+    yPosition = drawLine(yPosition);
+    yPosition += 5;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    const qualites = [
+      'Rigoureux et organisé',
+      'Esprit d\'équipe',
+      'Créatif et orienté résolution de problèmes',
+      'Bon sens du conseil et de la communication'
+    ];
+    
+    qualites.forEach((qualite, index) => {
+      const height = addText(`• ${qualite}`, margin, yPosition);
+      yPosition += height + 5;
+    });
+    
+    // Pied de page
+    const date = new Date().toLocaleDateString('fr-FR');
+    doc.setFontSize(8);
+    doc.setTextColor(150, 150, 150);
+    doc.text(`CV généré le ${date}`, pageWidth / 2, 290, { align: 'center' });
+    doc.text('Portfolio : https://mamitiana-portfolio.vercel.app', pageWidth / 2, 295, { align: 'center' });
+    
+    // Sauvegarder le PDF
+    doc.save('CV_Mamitiana_RANDRIANANTENAINA_Developpeur_FullStack.pdf');
   };
 
   return (
@@ -166,7 +409,7 @@ export default function Hero() {
                   variant="text" 
                   className="min-w-0 p-2 md:p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300 hover:scale-110 group"
                   aria-label="Email"
-                  onClick={() => window.location.href = 'mailto:mamitiana.randrianantenaina@gmail.com'}
+                  onClick={() => window.location.href = 'mailto:mamitianarandrianantenaina253@gmail.com'}
                 >
                   <Mail className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform" />
                 </Button>
